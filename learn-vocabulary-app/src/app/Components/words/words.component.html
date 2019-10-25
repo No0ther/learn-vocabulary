@@ -1,0 +1,29 @@
+<div *ngIf="isShowAddWord">
+    <div><input placeholder="English" [(ngModel)]="newEn" /></div>
+    <br>
+    <div><input placeholder="Vietnamese" [(ngModel)]="newVn" /></div>
+    <br>
+    <div><button (click)="addNewWord();">Save</button></div>
+</div>
+
+<div>
+    <button *ngIf="!isShowAddWord" (click)="isShowAddWord = !isShowAddWord">Add new words</button>
+</div>
+<br>
+<select [(ngModel)]="fillerStatus">
+    <option value="view_all">View all</option>
+    <option value="view_memorized">View word memorized</option>
+    <option value="view_not_yet">View word memorize not yet</option>
+</select>
+
+<div class="container">
+    <h2>List Words</h2>
+    <div *ngFor="let word of listWords" >
+        <div class="word" *ngIf="getShowStatus(word.memorized)">
+            <h4 [ngStyle]="{color: word.memorized ? 'green' : 'red'}">{{word.en}}:</h4>
+            <p>{{word.vn}}</p>
+            <button (click)="removeWord(word.id)">Delete</button>
+            <button (click)="word.memorized = !word.memorized">{{ word.memorized ? 'not yet memorize' : 'memorized'}}</button>
+        </div>
+    </div>
+</div>
